@@ -89,7 +89,7 @@
         </v-card-actions>
 
         <transition name="fade">
-          <UIMessage :msg="uploadMsg" />
+          <ui-message :msg="uploadMsg" />
         </transition>
       </v-card>
     </v-dialog>
@@ -108,28 +108,28 @@
       return {
         files: [],
         uploadImage: false,
-        exists: false,
         uploadImages: [],
       }
     },
     computed: {
       uploadMsg () {
-        return this.$store.getters['images/message']
+        return this.$store.getters['images/getMsg']
       },
       imgs () {
         return this.uploadImages
       },
     },
     methods: {
+      reset () {
+        this.files = []
+        this.uploadImage = false
+        this.uploadImages = []
+      },
       upload () {
         this.uploadImage = true
       },
       closeUpload () {
-        this.uploadImage = false
-        if (this.imgs.length > 0) {
-          this.$emit('update:images', this.imgs)
-        }
-        this.uploadImages = []
+        this.reset()
       },
       uploadImagesMethod () {
         this.files.forEach((file) => {
@@ -137,6 +137,11 @@
           this.$store.dispatch('images/multiUpload', file).then((response) => {
             this.uploadImages.push(response)
           })
+          setTimeout(() => {
+            this.reset()
+            this.$emit('update:images', this.uploadedImages)
+            this.$store.commit('images/SET_MSG', {})
+          }, 4000)
         })
       },
     },

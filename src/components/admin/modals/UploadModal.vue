@@ -67,7 +67,7 @@
           </v-btn>
 
           <transition name="fade">
-            <UiMessage :msg="uploadMsg" />
+            <ui-message :msg="uploadMsg" />
           </transition>
         </v-card-actions>
       </v-card>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import { imgCol, partnerImgCol, circuitImgCol } from '@/services/firebase'
+  import { imageCollection } from '@/services/firebase'
   export default {
     props: {
       image: {
@@ -110,7 +110,7 @@
     },
     computed: {
       uploadMsg () {
-        return this.$store.getters['images/message']
+        return this.$store.getters['images/getMsg']
       },
       img: {
         get () {
@@ -143,17 +143,7 @@
         this.reset()
       },
       checkFile () {
-        let collection
-
-        if (this.type === 'image') {
-          collection = imgCol
-        } else if (this.type === 'partner') {
-          collection = partnerImgCol
-        } else if (this.type === 'circuit') {
-          collection = circuitImgCol
-        }
-
-        collection
+        imageCollection
           .where('name', '==', this.file.name)
           .get()
           .then((docs) => {
@@ -174,7 +164,7 @@
           alt: this.uploadedImage.alt,
         }
         this.$store
-          .dispatch('images/uploadImage', this.payload)
+          .dispatch('images/singleUpload', this.payload)
           .then((response) => {
             this.uploadedImage = response
             this.$emit('update:image', this.uploadedImage)

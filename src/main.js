@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/store'
 import vuetify from './plugins/vuetify'
-import { auth } from './services/firebase'
+import { auth } from '@/services/firebase'
 import './plugins'
 
 Vue.config.productionTip = false

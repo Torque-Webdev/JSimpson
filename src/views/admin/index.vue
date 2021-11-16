@@ -56,6 +56,11 @@
         >
           Awards
         </v-tab>
+        <v-tab
+          to="/admin/media/"
+        >
+          Media
+        </v-tab>
       </v-tabs>
     </v-container>
 

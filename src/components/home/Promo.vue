@@ -7,7 +7,9 @@
       <v-row
         no-gutters
       >
-        <h2 class="white--text text-center py-5">{{ promo.title }}</h2>
+        <h2 class="white--text text-center py-5">
+          {{ promo.title }}
+        </h2>
         <v-col
           style="height: 90vh"
           cols="12"

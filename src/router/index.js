@@ -64,6 +64,18 @@ const router = new Router({
               name: 'Awards',
               component: () => import('@/views/admin/awards.vue'),
             },
+            {
+              path: 'media',
+              name: 'Media',
+              component: () => import('@/views/admin/media/index.vue'),
+              children: [
+                {
+                  path: 'images',
+                  name: 'Images',
+                  component: () => import('@/views/admin/media/images.vue'),
+                },
+              ],
+            },
           ],
         },
       ],
